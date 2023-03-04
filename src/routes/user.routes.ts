@@ -10,21 +10,25 @@ userRouter.get("/users", async (req, res) => {
 });
 
 // get user 
-userRouter.get(`/user`, async (req, res) => {
+userRouter.post(`/login`, async (req, res) => {
   try {
-    // const { userName, password } = req.body;
-    // if (!userName || !password) return res.status(404).send("missing data");
-    // let user = await User.findOne({
-    //   userName: req.body.userName,
-    //   password: req.body.password,
-    // });
-    let user = await User.find()
-    res.send({ data: user });
+    const { userName, password } = req.body;
+    if (!userName || !password) return res.status(404).send("missing data");
+    let user = await User.findOne(
+      {
+      userName: req.body.userName,
+      password: req.body.password,
+
+    }
+    );    res.send({ user });
+
+    // let user = await User.find()
+    // res.send({ data: user });
   } catch (error) {}
 });
 
 //  create new user
-userRouter.post("/user/new", async (req, res) => {
+userRouter.post("/createuser", async (req, res) => {
   try {
     const { userName, password } = req.body;
 
@@ -48,7 +52,7 @@ userRouter.post("/user/new", async (req, res) => {
     if (!user) return res.status(404).send("user not found");
 
     (await user).save();
-    res.send({ user });
+    res.send({ res });
   } catch (error) {
     res.json({ msg: `error :${error}` });
   }

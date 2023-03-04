@@ -7,7 +7,6 @@ import { Connection } from "./db/connection"
 import userRouter from "./routes/user.routes"
 import historyRouter from "./routes/history.routes"
 
-
 const app = express();
 
 config()
